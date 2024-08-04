@@ -12,9 +12,9 @@ floating_modifier $super
 exec --no-startup-id hsetroot -center /home/litios/Pictures/F6OSDo7WEAAsY4f.jpeg
 exec --no-startup-id xsettingsd &
 exec --no-startup-id picom -b
-exec --no-startup-id glava --desktop &
+exec_always --no-startup-id killall glava; glava --desktop &
 exec_always --no-startup-id $HOME/.config/polybar/forest/launch.sh
-
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 # start a terminal
 bindsym $super+Return exec tilix
@@ -36,10 +36,10 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
 bindsym XF86AudioMute exec amixer set Master toggle
 
 # music control
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc prev
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioStop exec mpc stop
+bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86AudioStop exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
 
 # kill focused window
 bindsym $super+c kill
